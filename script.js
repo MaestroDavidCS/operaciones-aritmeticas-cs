@@ -101,3 +101,23 @@ function getOperationName(operation) {
         case 'div': return 'divisiones';
     }
 }
+
+function saveUserData(nombre, correctas, incorrectas) {
+    const url = "https://script.google.com/macros/s/AKfycbzTb-lmj5ACgR28_XkMMnuQ5fSDegzKJU1eH8RWW406mPdggk1NnIalQh-K9SjymwWO/exec"; // Pega el URL del script aquí
+    const data = {
+        nombre: nombre,
+        correctas: correctas,
+        incorrectas: incorrectas
+    };
+
+    fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => console.log("Datos enviados"))
+    .catch(error => console.error("Error:", error));
+}
