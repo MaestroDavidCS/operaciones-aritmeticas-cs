@@ -78,16 +78,6 @@ function submitAnswer() {
     generateQuestion();
 }
 
-function endGame() {
-    clearInterval(timer);
-    document.getElementById('game-screen').style.display = 'none';
-    document.getElementById('result-screen').style.display = 'block';
-    document.getElementById('resultMessage').innerText = `Respuestas correctas: ${score} de ${questionCount}`;
-    
-    const nombre = document.getElementById('nameInput').value;
-    saveUserData(nombre, score, questionCount - score);
-}
-
 function resetGame() {
     score = 0;
     questionCount = 0;
