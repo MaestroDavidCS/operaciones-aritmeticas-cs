@@ -10,12 +10,44 @@ body {
 
 .container {
     text-align: center;
-    padding: 20px;
+    padding: 40px; /* Aumenta el padding para dar más espacio */
     border: 1px solid #ccc;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-width: 500px; /* Limita el ancho máximo para que no se vea demasiado ancho */
+    width: 90%; /* Se adapta a pantallas pequeñas */
 }
 
-#question-container, #result-screen {
-    margin-top: 20px;
+h1, h2 {
+    font-size: 2rem; /* Aumenta el tamaño de los títulos */
+    margin-bottom: 20px;
+}
+
+input[type="text"], select, input[type="number"] {
+    font-size: 1.2rem; /* Aumenta el tamaño de los campos de entrada */
+    padding: 10px;
+    width: 80%; /* Aumenta el ancho de los campos */
+    margin: 10px 0;
+}
+
+button {
+    font-size: 1.2rem; /* Aumenta el tamaño del texto en los botones */
+    padding: 12px 20px; /* Aumenta el tamaño de los botones */
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#question {
+    font-size: 1.5rem; /* Aumenta el tamaño de las preguntas */
+    margin-bottom: 15px;
+}
+
+#timer {
+    font-size: 1.5rem; /* Aumenta el tamaño del temporizador */
+    margin-top: 10px;
+}
+
+#resultMessage {
+    font-size: 1.2rem; /* Aumenta el tamaño de los resultados */
+    margin-top: 15px;
 }
