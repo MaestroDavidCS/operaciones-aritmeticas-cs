@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Matemáticos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="start-screen">
+            <h1>Bienvenido a Ejercicios Matemáticos</h1>
+            <input type="text" id="nameInput" placeholder="Ingresa tu nombre" required>
+            <select id="operationSelect">
+                <option value="sum">Suma</option>
+                <option value="sub">Resta</option>
+                <option value="mul">Multiplicación</option>
+                <option value="div">División</option>
+            </select>
+            <button onclick="startGame()">Comenzar</button>
+        </div>
+
+        <div id="game-screen" style="display: none;">
+            <h2 id="operationTitle"></h2>
+            <p id="timer">Tiempo: 60s</p>
+            <div id="question-container">
+                <p id="question"></p>
+                <input type="number" id="answerInput" placeholder="Respuesta">
+                <button onclick="submitAnswer()">Enviar</button>
+            </div>
+        </div>
+
+        <div id="result-screen" style="display: none;">
+            <h2>Resultados</h2>
+            <p id="resultMessage"></p>
+            <button onclick="resetGame()">Jugar de nuevo</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
