@@ -105,12 +105,13 @@ function getOperationName(operation) {
     }
 }
 
-function saveUserData(nombre, correctas, incorrectas) {
-    const url = "https://script.google.com/macros/s/AKfycbyDQj9y2ZvqKXsTlL94knsWP-mflrqkrQmtp3F1dDASUaMs9K8Vcpd3gU3D_KRWTPgT/exec"; // Pega el URL del script aquí
+function saveUserData(nombre, correctas, incorrectas, operacion) {
+    const url = "https://script.google.com/macros/s/AKfycbxyOWaWSBsLPn-qYKSOMYxpfBJ3MJSlMEXq8LGKF3b4vYG35LcKxgEm52df8FU0462V/exec"; // Pega el URL del script aquí
     const data = {
         nombre: nombre,
         correctas: correctas,
-        incorrectas: incorrectas
+        incorrectas: incorrectas,
+        operacion: operacion // Nueva información a enviar
     };
 
     fetch(url, {
@@ -123,4 +124,15 @@ function saveUserData(nombre, correctas, incorrectas) {
     })
     .then(response => console.log("Datos enviados"))
     .catch(error => console.error("Error:", error));
+}
+
+function endGame() {
+    clearInterval(timer);
+    document.getElementById('game-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    document.getElementById('resultMessage').innerText = `Respuestas correctas: ${score} de ${questionCount}`;
+    
+    const nombre = document.getElementById('nameInput').value;
+    const operacion = currentOperation; // Guarda el tipo de operación seleccionado
+    saveUserData(nombre, score, questionCount - score, operacion);
 }
