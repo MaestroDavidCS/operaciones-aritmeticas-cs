@@ -11,7 +11,7 @@ function startGame() {
     if (name) {
         document.getElementById('start-screen').style.display = 'none';
         document.getElementById('countdown-screen').style.display = 'block';
-        startCountdown();
+        startCountdown(); // Llama al inicio de la cuenta regresiva
     } else {
         alert("Por favor, ingresa tu nombre.");
     }
@@ -29,7 +29,7 @@ function startCountdown() {
             clearInterval(countdownTimer);
             document.getElementById('countdown-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'block';
-            document.getElementById('operationTitle').innerText = `Resuelve las ${getOperationName(currentOperation)} de ${name}`;
+            document.getElementById('operationTitle').innerText = `Resuelve las ${getOperationName(currentOperation)} de ${document.getElementById('nameInput').value}`;
             startTimer();
             generateQuestion();
         }
