@@ -24,7 +24,7 @@ function startTimer() {
         document.getElementById('timer').innerText = `Tiempo: ${timeLeft}s`;
         timeLeft--;
         if (timeLeft < 0) {
-            endGame();
+            endGame(); // Terminar automáticamente cuando el tiempo se acabe
         }
     }, 1000);
 }
@@ -117,12 +117,16 @@ function saveUserData(nombre, correctas, incorrectas, operacion) {
 }
 
 function endGame() {
+    // Detener el temporizador
     clearInterval(timer);
+
+    // Ocultar la pantalla del juego y mostrar los resultados
     document.getElementById('game-screen').style.display = 'none';
     document.getElementById('result-screen').style.display = 'block';
     document.getElementById('resultMessage').innerText = `Respuestas correctas: ${score} de ${questionCount}`;
     
+    // Registrar los datos en la hoja de cálculo
     const nombre = document.getElementById('nameInput').value;
-    const operacion = currentOperation; // Guarda el tipo de operación seleccionado
+    const operacion = currentOperation; // Tipo de operación seleccionada
     saveUserData(nombre, score, questionCount - score, operacion);
 }
