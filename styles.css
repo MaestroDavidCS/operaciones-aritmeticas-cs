@@ -12,7 +12,7 @@ body {
     text-align: center;
     padding: 40px; /* Aumenta el padding para dar más espacio */
     border: 1px solid #ccc;
-    background-color: #0000ff;
+    background-color: #fff;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     max-width: 500px; /* Limita el ancho máximo para que no se vea demasiado ancho */
     width: 90%; /* Se adapta a pantallas pequeñas */
