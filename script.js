@@ -32,6 +32,12 @@ function startCountdown() {
             document.getElementById('operationTitle').innerText = `Resuelve las ${getOperationName(currentOperation)} de ${document.getElementById('nameInput').value}`;
             startTimer();
             generateQuestion();
+            // Lee tecla enter para validación
+            document.getElementById('answerInput').addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    submitAnswer();
+                }
+            });
         }
     }, 1000);
 }
@@ -78,12 +84,6 @@ function generateQuestion() {
     document.getElementById('answerInput').focus();
 
     document.getElementById('answerInput').dataset.correctAnswer = correctAnswer;
-    // Detecta la tecla "Enter" para enviar la respuesta
-    document.getElementById('answerInput').addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            submitAnswer();
-        }
-    });
 }
 
 function submitAnswer() {
