@@ -3,19 +3,37 @@ let timeLeft = 60;
 let score = 0;
 let questionCount = 0;
 let currentOperation = 'sum';
+let countdownTimer;
 
 function startGame() {
     const name = document.getElementById('nameInput').value;
     currentOperation = document.getElementById('operationSelect').value;
     if (name) {
         document.getElementById('start-screen').style.display = 'none';
-        document.getElementById('game-screen').style.display = 'block';
-        document.getElementById('operationTitle').innerText = `Resuelve las ${getOperationName(currentOperation)} de ${name}`;
-        startTimer();
-        generateQuestion();
+        document.getElementById('countdown-screen').style.display = 'block';
+        startCountdown();
     } else {
         alert("Por favor, ingresa tu nombre.");
     }
+}
+
+function startCountdown() {
+    let countdown = 3;
+    document.getElementById('countdown-timer').innerText = countdown;
+
+    countdownTimer = setInterval(() => {
+        countdown--;
+        document.getElementById('countdown-timer').innerText = countdown;
+
+        if (countdown === 0) {
+            clearInterval(countdownTimer);
+            document.getElementById('countdown-screen').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('operationTitle').innerText = `Resuelve las ${getOperationName(currentOperation)} de ${name}`;
+            startTimer();
+            generateQuestion();
+        }
+    }, 1000);
 }
 
 function startTimer() {
@@ -24,7 +42,7 @@ function startTimer() {
         document.getElementById('timer').innerText = `Tiempo: ${timeLeft}s`;
         timeLeft--;
         if (timeLeft < 0) {
-            endGame(); // Terminar automáticamente cuando el tiempo se acabe
+            endGame();
         }
     }, 1000);
 }
@@ -62,13 +80,6 @@ function generateQuestion() {
     document.getElementById('answerInput').dataset.correctAnswer = correctAnswer;
 }
 
-// Detecta la tecla "Enter" para enviar la respuesta
-document.getElementById('answerInput').addEventListener('keyup', function(event) {
-    if (event.key === 'Enter') {
-        submitAnswer();
-    }
-});
-
 function submitAnswer() {
     const userAnswer = parseInt(document.getElementById('answerInput').value);
     const correctAnswer = parseInt(document.getElementById('answerInput').dataset.correctAnswer);
@@ -78,12 +89,24 @@ function submitAnswer() {
     generateQuestion();
 }
 
+function endGame() {
+    clearInterval(timer);
+    document.getElementById('game-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    document.getElementById('resultMessage').innerText = `Respuestas correctas: ${score} de ${questionCount}`;
+
+    const nombre = document.getElementById('nameInput').value;
+    const operacion = currentOperation;
+    saveUserData(nombre, score, questionCount - score, operacion);
+}
+
 function resetGame() {
     score = 0;
     questionCount = 0;
     document.getElementById('start-screen').style.display = 'block';
     document.getElementById('result-screen').style.display = 'none';
     document.getElementById('game-screen').style.display = 'none';
+    document.getElementById('countdown-screen').style.display = 'none';
 }
 
 function getOperationName(operation) {
@@ -93,40 +116,4 @@ function getOperationName(operation) {
         case 'mul': return 'multiplicaciones';
         case 'div': return 'divisiones';
     }
-}
-
-function saveUserData(nombre, correctas, incorrectas, operacion) {
-    const url = "https://script.google.com/macros/s/AKfycbxyOWaWSBsLPn-qYKSOMYxpfBJ3MJSlMEXq8LGKF3b4vYG35LcKxgEm52df8FU0462V/exec"; // Pega el URL del script aquí
-    const data = {
-        nombre: nombre,
-        correctas: correctas,
-        incorrectas: incorrectas,
-        operacion: operacion // Nueva información a enviar
-    };
-
-    fetch(url, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => console.log("Datos enviados"))
-    .catch(error => console.error("Error:", error));
-}
-
-function endGame() {
-    // Detener el temporizador
-    clearInterval(timer);
-
-    // Ocultar la pantalla del juego y mostrar los resultados
-    document.getElementById('game-screen').style.display = 'none';
-    document.getElementById('result-screen').style.display = 'block';
-    document.getElementById('resultMessage').innerText = `Respuestas correctas: ${score} de ${questionCount}`;
-    
-    // Registrar los datos en la hoja de cálculo
-    const nombre = document.getElementById('nameInput').value;
-    const operacion = currentOperation; // Tipo de operación seleccionada
-    saveUserData(nombre, score, questionCount - score, operacion);
 }
