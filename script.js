@@ -125,7 +125,7 @@ function getOperationName(operation) {
 }
 
 function saveUserData(nombre, correctas, incorrectas, operacion) {
-    const url = "https://script.google.com/macros/s/AKfycbyw6P0DH0sIhveQv4ceKSCYQni3-F7cQrkICVjHkUmvaHU8p8F46KwgTpYzKveViry5ow/exec";
+    const url = "https://script.google.com/macros/s/AKfycbyyBBLLG-dd-5zKFCOPb7EnZdGvP35657B6H11ZkHNCl9_Huls8sTmQxSoqVbrvKDnzsg/exec";
 
     const data = {
         nombre: nombre,
