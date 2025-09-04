@@ -125,22 +125,23 @@ function getOperationName(operation) {
 }
 
 function saveUserData(nombre, correctas, incorrectas, operacion) {
-    const url = "https://script.google.com/macros/s/AKfycbxyOWaWSBsLPn-qYKSOMYxpfBJ3MJSlMEXq8LGKF3b4vYG35LcKxgEm52df8FU0462V/exec"; // Pega el URL del script aquí
+    const url = "https://script.google.com/macros/s/AKfycbx3V4wxM53cIb1n1KsXyrD_RkDrptWN-c8spKfzEdJOBhbLJi8wg2ui3hH5Rx21sjVxXw/exec";
+
     const data = {
         nombre: nombre,
         correctas: correctas,
         incorrectas: incorrectas,
-        operacion: operacion // Nueva información a enviar
+        operacion: operacion
     };
 
     fetch(url, {
         method: "POST",
-        mode: "no-cors",
+        body: JSON.stringify(data),
         headers: {
             "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        }
     })
-    .then(response => console.log("Datos enviados"))
-    .catch(error => console.error("Error:", error));
+    .then(response => response.text())
+    .then(result => console.log("✅ Datos enviados correctamente:", result))
+    .catch(error => console.error("❌ Error al guardar datos:", error));
 }
